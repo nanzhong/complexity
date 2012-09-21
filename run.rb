@@ -14,5 +14,14 @@ result = a.run
 result.save("bubble_sort.data")
 =end
 
+=begin
 result = Complexity::Result.load("bubble_sort.data")
 result.test
+=end
+
+a = Complexity::Analyzer.new('~/src/complexity/exponential.rb')
+a.input = ->(s){s}
+result = a.run
+result.save("exponential.data")
+result = Complexity::Result.load("exponential.data")
+result.graph('exponential.png')
