@@ -123,7 +123,7 @@ module Complexity
       runtime_graph.data("avg", @data.values.collect {|run| run[:avg] })
       runtime_graph.data("min", @data.values.collect {|run| run[:min] })
       runtime_graph.data("max", @data.values.collect {|run| run[:max] })
-      runtime_graph.marker_count = 10
+      runtime_graph.marker_count = 5
       runtime_graph.write(file_path)
     end
 

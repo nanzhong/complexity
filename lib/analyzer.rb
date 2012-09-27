@@ -19,9 +19,10 @@ module Complexity
 
     def run(options = {})
       options = { :start => 0,
-                  :stop  => 4000,
-                  :step  => 100,
-                  :runs  => 3 }.merge(options)
+                  :stop  => 300000,
+                  :step  => 1000,
+                  :runs  => 6,
+                  :procs => Parallel.processor_count }.merge(options)
 
       data = {}
       (options[:start]...options[:stop]).step(options[:step]) do |n|
@@ -38,8 +39,8 @@ module Complexity
           raise "Error generating input for n=#{n}, run=#{run}"
         end
 
-        tms = Parallel.map(input, :in_processes => 4) do |input|
-          Benchmark.measure { IO.popen(@bin, 'r+') { |io| io.write input } }
+        tms = Parallel.map(input, :in_processes => options[:proces]) do |i|
+          Benchmark.measure { IO.popen(@bin, 'r+') { |io| io.write i } }
         end
 
         tms.each do |t|
